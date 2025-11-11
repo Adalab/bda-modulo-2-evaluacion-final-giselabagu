@@ -163,12 +163,60 @@ SELECT DISTINCT a.first_name AS nombre_actor, a.last_name AS apellido_actor  	#,
     INNER JOIN film_actor AS fa
 		ON a.actor_id = fa.actor_id
 	GROUP BY fa.actor_id
-    HAVING COUNT(fa.film_id) > 10
+    HAVING COUNT(fa.film_id) > 10;
     
     
--- 19. Encuentra el título de todas las películas que son "R" y tienen una duración mayor a 2 horas en la tabla  film
- 
+-- 19. Encuentra el título de todas las películas que son "R" y tienen una duración mayor a 2 horas en la tabla film
 
+SELECT title AS titulo_pelicula				#, rating, length (comprobación para ver que devuelve la respuesta correcta).
+	FROM film
+    WHERE rating = 'R' AND length > 120;
+    
+    
+/* 20.  Encuentra las categorías de películas que tienen un promedio de duración superior a 120 minutos y 
+		muestra el nombre de la categoría junto con el promedio de duración. */
+
+SELECT c.name AS categoria, AVG(f.length) AS promedio_duracion_pelicula
+	FROM category AS c
+    INNER JOIN film_category AS fc
+		ON c.category_id = fc.category_id
+	INNER JOIN film AS f
+		ON fc.film_id = f.film_id
+	GROUP BY c.category_id
+    HAVING AVG(f.length) > 120;
+    
+    
+/* 21.  Encuentra los actores que han actuado en al menos 5 películas y muestra el nombre del actor junto
+		con la cantidad de películas en las que han actuado.*/
+        
+SELECT DISTINCT a.first_name AS nombre_actor, COUNT(fa.film_id) AS cantidad_peliculas
+	FROM actor AS a
+	INNER JOIN film_actor AS fa
+		ON a.actor_id = fa.actor_id
+	GROUP BY a.actor_id
+    HAVING COUNT(fa.film_id) >= 5;
+    
+
+/* 22.  Encuentra el título de todas las películas que fueron alquiladas por más de 5 días. Utiliza una
+		subconsulta para encontrar los rental_ids con una duración superior a 5 días y luego selecciona las
+		películas correspondientes.*/
+        
+SELECT DISTINCT f.title AS titulo_pelicula
+	FROM film AS f
+    INNER JOIN inventory AS i
+		ON f.film_id = i.film_id
+	INNER JOIN rental AS r
+		ON i.inventory_id = r.inventory_id
+	WHERE rental_id IN (SELECT r2.rental_id
+							FROM rental AS r2
+                            WHERE DATEDIFF(r2.return_date, r2.rental_date) > 5);   
+                            
+				# DATEDIFF es una función, calcula la diferencia en días entre dos fechas: DATEDIFF(day, fecha_inicio, fecha_fin).
+                
+                
+/* 23. Encuentra el nombre y apellido de los actores que no han actuado en ninguna película de la categoría
+ "Horror". Utiliza una subconsulta para encontrar los actores que han actuado en películas de la
+ categoría "Horror" y luego exclúyelos de la lista de actores
  
 
 
