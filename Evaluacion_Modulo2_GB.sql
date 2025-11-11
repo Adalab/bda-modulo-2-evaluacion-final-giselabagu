@@ -310,20 +310,28 @@ SELECT f.title AS titulo_pelicula			#, c.name, f.length (comprobación para ver 
 /* 	BONUS 25.Encuentra todos los actores que han actuado juntos en al menos una película. 
 	La consulta debe mostrar el nombre y apellido de los actores y el número de películas en las que han actuado juntos. */
 
-WITH actores_peliculas AS (SELECT a.actor_id, a.first_name, a.last_name, f.title, f.film_id
+WITH actores_peliculas AS (SELECT a.actor_id, a.first_name, a.last_name, fa.film_id
 							FROM actor AS a
                             INNER JOIN film_actor AS fa
-								ON a.actor_id = fa.actor_id
-							INNER JOIN film AS f
-								ON f.film_id = fa.film_id)		# CTE --> Es una tabla temporal, fuera de esta consulta no existe.
+								ON a.actor_id = fa.actor_id)		# CTE --> Es una tabla temporal, fuera de esta consulta no existe.
 													
 SELECT 	ap1.first_name AS nombre_actor1, ap1.last_name AS apellido_actor1, 
 		ap2.first_name AS nombre_actor2, ap2.last_name AS apellido_actor2, 
         COUNT(ap1.film_id) AS peliculas_juntos
 	FROM actores_peliculas AS ap1
     INNER JOIN actores_peliculas AS ap2
-		ON ap1.film_id = ap2.film_id
-		AND ap1.actor_id < ap2.actor_id     						# Así evito duplicados
-	GROUP BY 	ap1.actor_id,
+		ON ap1.film_id = ap2.film_id								# Ambos actores participan en la misma película
+		AND ap1.actor_id < ap2.actor_id     						# Así evitamos duplicados
+	GROUP BY 	ap1.actor_id,										# Se agrupa por las 2 id de actor
 				ap2.actor_id;
+                
+                /* 	Partiendo de que 2 actores actúan juntos si comparten un mismo film_id, conviene un self join.
+                
+					También queremos evitar duplicados como actor X–Z y Z–X, por eso se aplica: ap1.actor_id < ap2.actor_id.
+                    
+                    La CTE se usa para quitar complejidad a la consulta principal facilitando una tabla temporal con los
+                    datos que necesitamos para mostrar en el resultado final, aunque no se podría resolver sin ella.
+                    
+                    
+					
 
