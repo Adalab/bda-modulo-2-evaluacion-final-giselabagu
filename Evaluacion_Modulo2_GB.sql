@@ -2,11 +2,22 @@
 ###### EVALUACIÓN FINAL MÓDULO 2 - Gisela Barroso #####
 #######################################################
 
+/* 
+   Nota: En ningún enunciado se solicita explícitamente el uso de alias para columnas o tablas. 
+   Sin embargo, me he tomado la libertad de utilizarlos para facilitar la lectura y comprensión 
+   de los resultados, y para mantener un estilo consistente a lo largo de toda la prueba.
+   
+   Además, uso alias funcionales (sin espacios ni caracteres especiales) para evitar problemas 
+   futuros al extraer o manipular los resultados. Por ejemplo, si quisiera usar un alias con espacios, 
+   debería escribirlo entre comillas: 'Título película'.
+*/
+
+
 USE sakila;
 
 -- 1. Selecciona todos los nombres de las películas sin que aparezcan duplicados.
 
-SELECT DISTINCT title AS titulo_pelicula
+SELECT DISTINCT title AS titulo_pelicula   
 	FROM film;
     
     
@@ -46,6 +57,7 @@ SELECT DISTINCT CONCAT(first_name, ' ', last_name) AS nombre_completo_actor
 			FROM actor
 			GROUP BY first_name, last_name
 			HAVING COUNT(*) > 1;
+            
     
 -- 6. Encuentra el nombre y apellido de los actores que tengan "Gibson" en su apellido.
 
@@ -59,6 +71,9 @@ SELECT first_name AS nombre_actor, last_name AS apellido_actor
 SELECT DISTINCT CONCAT(first_name, ' ', last_name) AS nombre_completo_actor			#, actor_id (comprobación para ver que devuelve la respuesta correcta).
 	FROM actor
     WHERE actor_id BETWEEN 10 AND 20;
+    
+    /*  En este ejercicio, al no especificarse si hay que recuperar los nombres completos incluyendo apellidos o no, 
+		decido usar el CONCAT para devolver nombre + apellido en una única columna. */
     
     
 -- 8. Encuentra el título de las películas en la tabla film que no sean ni "R" ni "PG-13" en cuanto a su clasificación.
@@ -163,8 +178,7 @@ SELECT DISTINCT a.actor_id AS id_actor
 SELECT title AS titulo_pelicula					#, release_year (comprobación para ver que devuelve la respuesta correcta).
 	FROM film
     WHERE release_year BETWEEN 2005 AND 2010;		
-    
-    
+        
     
 -- 17.  Encuentra el título de todas las películas que son de la misma categoría que "Family".
 
@@ -224,6 +238,9 @@ SELECT DISTINCT CONCAT(a.first_name, ' ', a.last_name) AS nombre_completo_actor,
 		ON a.actor_id = fa.actor_id
 	GROUP BY a.actor_id, a.first_name, a.last_name
     HAVING COUNT(fa.film_id) >= 5;
+    
+		/*  En este ejercicio, al no especificarse si hay que recuperar los nombres completos incluyendo apellidos o no, 
+			decido usar el CONCAT para devolver nombre + apellido en una única columna. */
     
 
 /* 22.  Encuentra el título de todas las películas que fueron alquiladas por más de 5 días. Utiliza una
@@ -288,8 +305,10 @@ SELECT f.title AS titulo_pelicula			#, c.name, f.length (comprobación para ver 
 	INNER JOIN category AS c
 		ON fc.category_id = c.category_id
     WHERE f.length > 180 AND c.name = 'Comedy';
+    
 
-
+/* 	BONUS 25.Encuentra todos los actores que han actuado juntos en al menos una película. 
+	La consulta debe mostrar el nombre y apellido de los actores y el número de películas en las que han actuado juntos.
 
 
 
