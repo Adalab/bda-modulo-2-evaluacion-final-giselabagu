@@ -50,7 +50,7 @@ SELECT DISTINCT CONCAT(first_name, ' ', last_name) AS nombre_completo_actor
     /*  En este ejercicio, al no especificarse si hay que recuperar los nombres completos incluyendo apellidos o no, 
 		decido usar el CONCAT para devolver nombre + apellido en una única columna.
         
-        Además, uso el DISTINCT porque sin él se repite el nombre de una actriz. En la querie de abajo compruebo que efectivamente 
+        Además, uso el DISTINCT porque sin él se repite el nombre de una actriz. En la query de abajo compruebo que efectivamente 
 			Susan Davis está listada 2 veces en la tabla actor. */
         
         SELECT first_name, last_name, COUNT(*) AS cantidad		# COUNT(*) cuenta todos los registros de la consulta.
