@@ -170,7 +170,10 @@ SELECT DISTINCT a.actor_id AS id_actor
     
 	/* 	En este ejercicio decido usar DISTINCT ya que, cuando se usan joins, sobre todo LEFT JOIN para buscar "no relacionados", 
 		y solo se quieren identificar registros únicos, usarlo es una buena práctica para evitar duplicados. 
-        Además, ya hemos visto que hay una actriz duplicada en la tabla actor.*/
+        Además, ya hemos visto que hay una actriz duplicada en la tabla actor.
+        
+        El resultado de esta consulta está vacío porque no se cumple esta condición, no hay ningún actor/actriz que no aparezca en 
+        ninguna película en la tabla film_actor. */
         
     
 -- 16. Encuentra el título de todas las películas que fueron lanzadas entre el año 2005 y 2010.
