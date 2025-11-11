@@ -209,7 +209,7 @@ SELECT DISTINCT a.first_name AS nombre_actor, a.last_name AS apellido_actor  	#,
 		/* 	Uso el DISTINCT porque como ya hemos visto, hay una actriz duplicada en la tabla actor.*/
            
     
--- 19. Encuentra el título de todas las películas que son "R" y tienen una duración mayor a 2 horas en la tabla film
+-- 19. Encuentra el título de todas las películas que son "R" y tienen una duración mayor a 2 horas en la tabla film.
 
 SELECT title AS titulo_pelicula				#, rating, length (comprobación para ver que devuelve la respuesta correcta).
 	FROM film
@@ -261,7 +261,7 @@ SELECT DISTINCT f.title AS titulo_pelicula
                             WHERE r2.return_date IS NOT NULL
 								AND DATEDIFF(r2.return_date, r2.rental_date) > 5);   
                             
-				/* 	DATEDIFF es una función, calcula la diferencia en días entre dos fechas: DATEDIFF(day, fecha_inicio, fecha_fin).
+				/* 	DATEDIFF es una función, calcula la diferencia en días entre dos fechas: DATEDIFF(fecha_fin, fecha_inicio).
 					Se le añade esto a la subconsulta "WHERE r2.return_date IS NOT NULL" para asegurarme de que no haya alguna
                     película todavía sin devolver en la que no haya fecha return (NULL).
                 
