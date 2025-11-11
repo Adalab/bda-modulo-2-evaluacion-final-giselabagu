@@ -330,7 +330,7 @@ SELECT 	ap1.first_name AS nombre_actor1, ap1.last_name AS apellido_actor1,
 					También queremos evitar duplicados como actor X–Z y Z–X, por eso se aplica: ap1.actor_id < ap2.actor_id.
                     
                     La CTE se usa para quitar complejidad a la consulta principal facilitando una tabla temporal con los
-                    datos que necesitamos para mostrar en el resultado final, aunque no se podría resolver sin ella. */
+                    datos que necesitamos para mostrar en el resultado final, aunque se podría resolver sin ella. */
                     
                     
 					
