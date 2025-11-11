@@ -8,7 +8,7 @@
    de los resultados, y para mantener un estilo consistente a lo largo de toda la prueba.
    
    Además, uso alias funcionales (sin espacios ni caracteres especiales) para evitar problemas 
-   futuros al extraer o manipular los resultados. Por ejemplo, si quisiera usar un alias con espacios, 
+   futuros al extraer o manipular los resultados. Aunque si quisiera usar un alias con espacios, 
    debería escribirlo entre comillas: 'Título película'.
 */
 
