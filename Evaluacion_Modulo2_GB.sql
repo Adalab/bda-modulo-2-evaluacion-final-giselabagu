@@ -98,13 +98,41 @@ SELECT rating AS clasificacion, AVG(length) AS promedio_duracion_pelicula
 	FROM film
     GROUP BY rating;
     
--- Encuentra el nombre y apellido de los actores que aparecen en la película con title "Indian Love".
+    
+-- 13. Encuentra el nombre y apellido de los actores que aparecen en la película con title "Indian Love".
 
 SELECT DISTINCT first_name AS nombre_actor, last_name AS apellido_actor
-	FROM actor
-    INNER JOIN 
+	FROM actor AS a
+    INNER JOIN film_actor AS fa
+		ON a.actor_id = fa.actor_id
+	INNER JOIN film AS f
+		ON fa.film_id = f.film_id
+	WHERE f.title = "Indian Love";
+    
+    
+-- 14. Muestra el título de todas las películas que contengan la palabra "dog" o "cat" en su descripción.
+
+SELECT title AS titulo_pelicula				#, description (comprobación para ver que devuelve la respuesta correcta).
+	FROM film
+    WHERE description LIKE '% dog %' OR description LIKE '% cat %';
+
+/* PREGUNTAR CÉSAR --> en este caso tendría problemas si la palabra está al inicio de la descripción, al final, o 
+						pegada a algún signo de puntuación. Si quito los espacios serían silabas, no palabras completas...
+                        mejor la opción con REGEXP? */
+                        
+
+SELECT title AS titulo_pelicula				#, description (comprobación para ver que devuelve la respuesta correcta).
+	FROM film
+    WHERE description REGEXP '\\bdog\\b' OR description REGEXP '\\bcat\\b';
+    
+    # \\b delimita las palabras para que no se confunda con partes dentro de otras palabras.
+    # Se necesita la doble \ para escapar dentro de una cadena de texto.
+    
+
+-- 15. Hay algún actor o actriz que no aparezca en ninguna película en la tabla film_actor.
 
 
+ 
 
 
 
